@@ -1,1 +1,1707 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quadern Digital de Projecte - Enginyeria Biomèdica UOC</title>
+  <style>
+    :root {
+      --primary: #004080;
+      --primary-hover: #003060;
+      --secondary: #eef4fb;
+      --accent: #0076d6;
+      --text: #2c3e50;
+      --bg: #f4f7f6;
+      --card-bg: #ffffff;
+      --border: #dcdfe6;
+      --danger: #d9534f;
+      --warning: #f0ad4e;
+      --success: #5cb85c;
+      --info: #5bc0de;
+      --radius: 8px;
+      --shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
 
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding-bottom: 40px;
+    }
+
+    header {
+      background-color: var(--primary);
+      color: white;
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    header .subtitle {
+      font-size: 0.85rem;
+      opacity: 0.85;
+    }
+
+    .banner-privacy {
+      background-color: #fff3cd;
+      color: #856404;
+      padding: 10px 20px;
+      border-left: 5px solid #ffebaba0;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+
+    nav {
+      display: flex;
+      gap: 5px;
+      background: #e2e8f0;
+      padding: 5px;
+      border-radius: var(--radius);
+      margin-bottom: 20px;
+      overflow-x: auto;
+    }
+
+    nav button {
+      flex: 1;
+      padding: 10px 15px;
+      border: none;
+      background: transparent;
+      color: #4a5568;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    nav button:hover {
+      background: rgba(255,255,255,0.5);
+      color: var(--primary);
+    }
+
+    nav button.active {
+      background: var(--card-bg);
+      color: var(--primary);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
+    }
+
+    .card h2 {
+      font-size: 1.25rem;
+      color: var(--primary);
+      margin-bottom: 15px;
+      border-bottom: 2px solid var(--secondary);
+      padding-bottom: 8px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 5px;
+      font-size: 0.9rem;
+    }
+
+    .form-control, select, textarea, input[type="text"], input[type="datetime-local"], input[type="date"], input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+    }
+
+    .form-control:focus, select:focus, textarea:focus, input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    @media (max-width: 768px) {
+      .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .btn {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: #2d3748;
+    }
+
+    .btn-secondary:hover {
+      background: #cbd5e0;
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background: #c9302c;
+    }
+
+    .btn-sm {
+      padding: 5px 10px;
+      font-size: 0.85rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    table th, table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    table th {
+      background: var(--secondary);
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .entry-card {
+      border-left: 4px solid var(--accent);
+      background: white;
+      padding: 18px;
+      border-radius: 6px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      margin-bottom: 15px;
+      border-top: 1px solid #edf2f7;
+      border-right: 1px solid #edf2f7;
+      border-bottom: 1px solid #edf2f7;
+    }
+
+    .entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .entry-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .entry-meta {
+      font-size: 0.85rem;
+      color: #718096;
+      display: flex;
+      gap: 15px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .badge-activity {
+      background: #ebf8ff;
+      color: #2b6cb0;
+    }
+
+    .entry-section {
+      margin-top: 10px;
+    }
+
+    .entry-section-title {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #4a5568;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .kanban-board {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    @media (max-width: 900px) {
+      .kanban-board {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .kanban-col {
+      background: #f8fafc;
+      border-radius: 8px;
+      padding: 12px;
+      border: 1px solid #e2e8f0;
+      min-height: 400px;
+    }
+
+    .kanban-col-header {
+      font-weight: 700;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      border-bottom: 2px solid;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .col-pendent { border-color: var(--warning); color: #b7791f; }
+    .col-proces { border-color: var(--accent); color: #2b6cb0; }
+    .col-bloquejada { border-color: var(--danger); color: #c53030; }
+    .col-completada { border-color: var(--success); color: #2f855a; }
+
+    .task-card {
+      background: white;
+      padding: 12px;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      margin-bottom: 10px;
+      border-left: 3px solid;
+      transition: all 0.2s ease;
+    }
+
+    .task-pendent { border-left-color: var(--warning); }
+    .task-proces { border-left-color: var(--accent); }
+    .task-bloquejada { border-left-color: var(--danger); }
+    .task-completada { border-left-color: var(--success); }
+
+    .task-title {
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+
+    .task-meta {
+      font-size: 0.8rem;
+      color: #718096;
+      margin-bottom: 8px;
+    }
+
+    /* ESTILS DE TERMINI (DEADLINE BADGES) */
+    .badge-deadline {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .badge-vencuda { background-color: #ffebe9; color: var(--danger); border: 1px solid var(--danger); }
+    .badge-urgent { background-color: #fff8e6; color: #b7791f; border: 1px solid #f0ad4e; }
+    .badge-ok { background-color: #e6f4ff; color: var(--accent); border: 1px solid var(--accent); }
+    .badge-done { background-color: #e6f4ea; color: var(--success); border: 1px solid var(--success); }
+    .task-vencuda { border-right: 4px solid var(--danger) !important; background-color: #fff8f8; }
+
+    /* ESTILS DE SUBTASQUES (CHECKLIST) */
+    .subtask-progress {
+      font-size: 0.75rem;
+      color: #718096;
+      margin-top: 6px;
+      font-weight: 600;
+    }
+
+    .subtask-list {
+      margin-top: 6px;
+      padding-top: 6px;
+      border-top: 1px dashed #e2e8f0;
+      font-size: 0.85rem;
+    }
+
+    .subtask-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+      line-height: 1.2;
+    }
+
+    .subtask-item.completed span {
+      text-decoration: line-through;
+      color: #a0aec0;
+    }
+
+    /* ESTILS DE NOTIFICACIONS FLOTANTS (TOASTS) */
+    #toast-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      pointer-events: none;
+    }
+
+    .toast {
+      pointer-events: auto;
+      min-width: 250px;
+      max-width: 360px;
+      padding: 12px 16px;
+      border-radius: var(--radius);
+      color: white;
+      font-size: 0.9rem;
+      font-weight: 500;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      animation: toastSlideIn 0.3s ease-out forwards;
+    }
+
+    .toast.toast-success { background-color: var(--success); }
+    .toast.toast-warning { background-color: var(--warning); color: #2d3748; }
+    .toast.toast-danger { background-color: var(--danger); }
+    .toast.toast-info { background-color: var(--accent); }
+
+    .toast-close {
+      background: none;
+      border: none;
+      color: inherit;
+      font-size: 1.1rem;
+      cursor: pointer;
+      opacity: 0.8;
+      line-height: 1;
+    }
+
+    .toast-close:hover { opacity: 1; }
+
+    @keyframes toastSlideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes toastFadeOut {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(100%); opacity: 0; }
+    }
+
+    .metric-box {
+      background: white;
+      border: 1px solid var(--border);
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .metric-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .progress-bar-container {
+      background: #edf2f7;
+      height: 16px;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 10px 0;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: var(--accent);
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    .sub-item {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .disclaimer {
+      font-size: 0.85rem;
+      color: #718096;
+      font-style: italic;
+      margin-top: 15px;
+      padding: 10px;
+      background: #f7fafc;
+      border-radius: 6px;
+      border: 1px solid #edf2f7;
+    }
+
+    .filter-bar {
+      background: #edf2f7;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <h1>Quadern Digital de Projecte</h1>
+      <div class="subtitle">Enginyeria Biomèdica | Universitat Oberta de Catalunya (UOC)</div>
+    </div>
+  </header>
+
+  <div class="banner-privacy">
+    ⚠️ <strong>AVÍS DE PRIVADESA I SEGURETAT:</strong> Aquest és un entorn de quadern de camp acadèmic. Queda strictly prohibit introduir dades sensibles, confidencials o dades reals de pacients.
+  </div>
+
+  <div class="container">
+    <nav>
+      <button class="nav-btn active" onclick="showTab('info')">📋 Informació General</button>
+      <button class="nav-btn" onclick="showTab('diari')">📖 Diari del Projecte</button>
+      <button class="nav-btn" onclick="showTab('tasques')">☑️ Gestió de Tasques</button>
+      <button class="nav-btn" onclick="showTab('dashboard')">📊 Seguiment i Indicadors</button>
+      <button class="nav-btn" onclick="showTab('historial')">📜 Historial de Canvis</button>
+      <button class="nav-btn" onclick="showTab('dades')">💾 Dades (Exportar/Importar)</button>
+    </nav>
+
+    <!-- 1. INFORMACIÓ GENERAL -->
+    <div id="tab-info" class="tab-content active">
+      <div class="card">
+        <h2>Dades Generals del Projecte</h2>
+        <div class="grid-3">
+          <div class="form-group">
+            <label>Nom del Projecte</label>
+            <input type="text" id="proj-nom" placeholder="Ex: Disseny d'un biosensor EEG lleuger">
+          </div>
+          <div class="form-group">
+            <label>Assignatura</label>
+            <input type="text" id="proj-assignatura" placeholder="Ex: Projecte d'Enginyeria Biomèdica">
+          </div>
+          <div class="form-group">
+            <label>Professora / Professor</label>
+            <input type="text" id="proj-professora" placeholder="Nom del docent">
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="guardarInfoGeneral()">Desar Dades Generals</button>
+      </div>
+
+      <div class="card">
+        <h2>Equip de Treball</h2>
+        <p style="font-size: 0.9rem; margin-bottom: 15px; color: #4a5568;">
+          Membres configurats per defecte. Podeu afegir o actualitzar el seu rol i correu electrònic oficial de la UOC.
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Nom i Cognoms</th>
+              <th>Rol al Projecte</th>
+              <th>Correu UOC</th>
+              <th>Accions</th>
+            </tr>
+          </thead>
+          <tbody id="taula-equip">
+            <!-- Es carrega dinàmicament -->
+          </tbody>
+        </table>
+        <div style="margin-top: 15px;">
+          <button class="btn btn-secondary btn-sm" onclick="obrirModalMembre()">+ Afegir Nou Membre</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. DIARI DEL PROJECTE -->
+    <div id="tab-diari" class="tab-content">
+      <div class="card">
+        <h2>Nova Entrada al Diari</h2>
+        <form id="form-diari" onsubmit="guardarEntradaDiari(event)">
+          <input type="hidden" id="diari-id">
+          <div class="grid-3">
+            <div class="form-group">
+              <label>Data i Hora *</label>
+              <input type="datetime-local" id="diari-data" required>
+            </div>
+            <div class="form-group">
+              <label>Autor/a *</label>
+              <select id="diari-autor" required>
+                <!-- Opcions dinàmiques -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Tipus d'Activitat *</label>
+              <select id="diari-tipus" required>
+                <option value="Reunió">Reunió</option>
+                <option value="Investigació">Investigació</option>
+                <option value="Disseny">Disseny</option>
+                <option value="Programació">Programació</option>
+                <option value="Proves de laboratori">Proves de laboratori</option>
+                <option value="Redacció">Redacció</option>
+                <option value="Altres">Altres</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Títol de l'Activitat *</label>
+            <input type="text" id="diari-titol" placeholder="Descripció breu de l'activitat" required>
+          </div>
+
+          <div class="form-group">
+            <label>Què s'ha fet? *</label>
+            <textarea id="diari-descripcio" rows="3" placeholder="Detalla el treball realitzat..." required></textarea>
+          </div>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label>Decisions preses i justificació</label>
+              <textarea id="diari-decisions" rows="2" placeholder="Quines decisions s'han après i per què?"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Resultats / Conclusions</label>
+              <textarea id="diari-resultats" rows="2" placeholder="Resultats obtinguts..."></textarea>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Participants i Aportació Específica</label>
+            <div id="container-participants">
+              <!-- Es genera dinàmicament -->
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Enllaços a Evidències / Documents</label>
+            <div id="container-enllacos"></div>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="afegirCampEnllac()" style="margin-top: 5px;">+ Afegir Enllaç</button>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Desar Entrada al Diari</button>
+          <button type="button" class="btn btn-secondary" onclick="netejarFormDiari()">Cancel·lar / Netejar</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>Entrades del Diari</h2>
+        <div class="filter-bar">
+          <div class="grid-4">
+            <div class="form-group" style="margin-bottom:0">
+              <label>Cerca de text</label>
+              <input type="text" id="filtre-text" placeholder="Cerca en títol, descripció..." oninput="filtrarDiari()">
+            </div>
+            <div class="form-group" style="margin-bottom:0">
+              <label>Filtrar per Autor/a</label>
+              <select id="filtre-autor" onchange="filtrarDiari()">
+                <option value="">Tots els autors</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin-bottom:0">
+              <label>Filtrar per Tipus</label>
+              <select id="filtre-tipus" onchange="filtrarDiari()">
+                <option value="">Tots els tipus</option>
+                <option value="Reunió">Reunió</option>
+                <option value="Investigació">Investigació</option>
+                <option value="Disseny">Disseny</option>
+                <option value="Programació">Programació</option>
+                <option value="Proves de laboratori">Proves de laboratori</option>
+                <option value="Redacció">Redacció</option>
+                <option value="Altres">Altres</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin-bottom:0">
+              <label>Data Des de / Fins a</label>
+              <div style="display: flex; gap: 5px;">
+                <input type="date" id="filtre-data-desde" onchange="filtrarDiari()">
+                <input type="date" id="filtre-data-finsa" onchange="filtrarDiari()">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="llista-diari">
+          <!-- Es carrega dinàmicament -->
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. GESTIÓ DE TASQUES -->
+    <div id="tab-tasques" class="tab-content">
+      <div class="card">
+        <h2>Nova Tasca</h2>
+        <form id="form-tasca" onsubmit="guardarTasca(event)">
+          <input type="hidden" id="tasca-id">
+          <div class="grid-3">
+            <div class="form-group">
+              <label>Descripció de la Tasca *</label>
+              <input type="text" id="tasca-descripcio" placeholder="Quina tasca s'ha de fer?" required>
+            </div>
+            <div class="form-group">
+              <label>Data Límit (Deadline) *</label>
+              <input type="date" id="tasca-limit" required>
+            </div>
+            <div class="form-group">
+              <label>Estat Inicial</label>
+              <select id="tasca-estat">
+                <option value="Pendent">Pendent</option>
+                <option value="En procés">En procés</option>
+                <option value="Bloquejada">Bloquejada</option>
+                <option value="Completada">Completada</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Subtasques (Llista de comprovació)</label>
+            <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+              <input type="text" id="tasca-nova-subtasca" placeholder="Ex: Preparar document d'especificacions">
+              <button type="button" class="btn btn-secondary btn-sm" onclick="afegirSubtascaForm()">+ Afegir Subtasca</button>
+            </div>
+            <div id="container-subtasques-form"></div>
+          </div>
+
+          <div class="form-group">
+            <label>Responsable/s *</label>
+            <div id="container-tasca-responsables" style="display: flex; gap: 15px; flex-wrap: wrap;">
+              <!-- Checkboxes dinàmics -->
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Desar Tasca</button>
+          <button type="button" class="btn btn-secondary" onclick="netejarFormTasca()">Cancel·lar</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>Tauler de Tasques (Kanban)</h2>
+        <div class="kanban-board">
+          <div class="kanban-col">
+            <div class="kanban-col-header col-pendent">
+              <span>Pendent</span>
+              <span id="count-pendent" class="badge">0</span>
+            </div>
+            <div id="tasks-pendent"></div>
+          </div>
+          <div class="kanban-col">
+            <div class="kanban-col-header col-proces">
+              <span>En procés</span>
+              <span id="count-proces" class="badge">0</span>
+            </div>
+            <div id="tasks-proces"></div>
+          </div>
+          <div class="kanban-col">
+            <div class="kanban-col-header col-bloquejada">
+              <span>Bloquejada</span>
+              <span id="count-bloquejada" class="badge">0</span>
+            </div>
+            <div id="tasks-bloquejada"></div>
+          </div>
+          <div class="kanban-col">
+            <div class="kanban-col-header col-completada">
+              <span>Completada</span>
+              <span id="count-completada" class="badge">0</span>
+            </div>
+            <div id="tasks-completada"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. SEGUIMENT I INDICADORS -->
+    <div id="tab-dashboard" class="tab-content">
+      <div class="card">
+        <h2>Progrés Global del Projecte</h2>
+        <div class="grid-3">
+          <div class="metric-box">
+            <div>Percentatge Completat</div>
+            <div class="metric-value" id="dash-progress-pc">0%</div>
+          </div>
+          <div class="metric-box">
+            <div>Total Tasques</div>
+            <div class="metric-value" id="dash-total-tasks">0</div>
+          </div>
+          <div class="metric-box">
+            <div>Entrades al Diari</div>
+            <div class="metric-value" id="dash-total-entries">0</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 20px;">
+          <label style="font-weight: 600;">Estat Global de les Tasques</label>
+          <div class="progress-bar-container">
+            <div id="dash-progress-bar" class="progress-bar"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Mètriques de Participació de l'Equip</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Membre</th>
+              <th>Entrades Creades (Autor)</th>
+              <th>Participacions en Activitats</th>
+              <th>Tasques Assignades</th>
+              <th>Tasques Completades</th>
+            </tr>
+          </thead>
+          <tbody id="dash-taula-participacio">
+            <!-- Es calcula dinàmicament -->
+          </tbody>
+        </table>
+
+        <div class="disclaimer">
+          ⚠️ <strong>Atenció:</strong> Aquests indicadors de participació són només orientatius. Quantitat no implica qualitat en la feina realitzada.
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. HISTORIAL DE CANVIS -->
+    <div id="tab-historial" class="tab-content">
+      <div class="card">
+        <h2>Historial de Canvis (Audit Log)</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Data i Hora</th>
+              <th>Usuari / Executor</th>
+              <th>Acció Realitzada</th>
+            </tr>
+          </thead>
+          <tbody id="taula-historial">
+            <!-- Es carrega dinàmicament -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 6. GESTIÓ DE DADES -->
+    <div id="tab-dades" class="tab-content">
+      <div class="card">
+        <h2>Exportació i Importació de Dades (JSON)</h2>
+        <p style="margin-bottom: 15px;">
+          Com que l'aplicació no utilitza un servidor centralitzat, cada membre té les dades al seu ordinador. Feu servir aquestes eines per compartir l'estat del projecte.
+        </p>
+
+        <div class="grid-2">
+          <div style="border: 1px dashed var(--border); padding: 20px; border-radius: 8px; text-align: center;">
+            <h3>Exportar Estat Actual</h3>
+            <p style="font-size: 0.85rem; color: #718096; margin: 10px 0;">Descarrega un fitxer JSON amb tot el contingut actual del quadern.</p>
+            <button class="btn btn-primary" onclick="exportarJSON()">📥 Descarregar JSON</button>
+          </div>
+
+          <div style="border: 1px dashed var(--border); padding: 20px; border-radius: 8px; text-align: center;">
+            <h3>Importar i Fusionar JSON</h3>
+            <p style="font-size: 0.85rem; color: #718096; margin: 10px 0;">Carrega el JSON d'un altre company. Les dades es fusionaran de manera intel·ligent sense esborrar la teva feina.</p>
+            <input type="file" id="import-file" accept=".json" style="display: none;" onchange="importarJSON(event)">
+            <button class="btn btn-secondary" onclick="document.getElementById('import-file').click()">📤 Carregar i Fusionar Fitxer</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="border-color: var(--danger);">
+        <h2 style="color: var(--danger);">Zona de Perill</h2>
+        <p style="font-size: 0.9rem; margin-bottom: 15px;">Aquesta acció esborrarà totes les dades emmagatzemades localment en aquest navegador.</p>
+        <button class="btn btn-danger" onclick="reiniciarDades()">⚠️ Restablir totes les dades</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenidor de Notificacions Flotants (Toasts) -->
+  <div id="toast-container"></div>
+
+  <script>
+    // Membres de l'equip predeterminats per defecte
+    const MEMBRES_DEFECTE = [
+      { id: "m1", nom: "Jana Oltra Arrieta", rol: "", email: "" },
+      { id: "m2", nom: "Judit Coll Portet", rol: "", email: "" },
+      { id: "m3", nom: "Paola Fernández Franco", rol: "", email: "" },
+      { id: "m4", nom: "Victor Ceballos Zarzoso", rol: "", email: "" },
+      { id: "m5", nom: "Paula Gómez Manyes", rol: "", email: "" }
+    ];
+
+    // Estat Global de l'Aplicació
+    let appState = {
+      meta: {
+        versio: "1.0",
+        darreraModificacio: new Date().toISOString()
+      },
+      projecte: {
+        nom: "",
+        assignatura: "",
+        professora: ""
+      },
+      equip: JSON.parse(JSON.stringify(MEMBRES_DEFECTE)),
+      diari: [],
+      tasques: [],
+      historial: []
+    };
+
+    // Estat temporal per les subtasques del formulari
+    let subtasksFormTemp = [];
+
+    // SISTEMA DE NOTIFICACIONS TEMPORALS FLOTANTS (TOASTS)
+    function mostrarToast(missatge, tipus = 'info', durada = 3500) {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+
+      const toast = document.createElement('div');
+      toast.className = `toast toast-${tipus}`;
+      toast.innerHTML = `
+        <span>${escapeHtml(missatge)}</span>
+        <button class="toast-close" onclick="tancarToast(this.parentElement)">&times;</button>
+      `;
+
+      container.appendChild(toast);
+
+      const timer = setTimeout(() => {
+        tancarToast(toast);
+      }, durada);
+
+      toast.dataset.timer = timer;
+    }
+
+    function tancarToast(toast) {
+      if (!toast) return;
+      if (toast.dataset.timer) clearTimeout(toast.dataset.timer);
+      toast.style.animation = 'toastFadeOut 0.3s ease-in forwards';
+      setTimeout(() => {
+        if (toast.parentElement) toast.parentElement.removeChild(toast);
+      }, 300);
+    }
+
+    // Inicialització
+    document.addEventListener("DOMContentLoaded", () => {
+      carregarLocalStorage();
+      establirDataHoraActual();
+      renderitzarTot();
+    });
+
+    function establirDataHoraActual() {
+      const now = new Date();
+      now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+      document.getElementById('diari-data').value = now.toISOString().slice(0, 16);
+    }
+
+    function registrarAccio(accio, usuari = "Sistema") {
+      appState.historial.unshift({
+        id: "hist-" + Date.now() + "-" + Math.random().toString(36).substr(2, 4),
+        timestamp: new Date().toISOString(),
+        usuari: usuari,
+        accio: accio
+      });
+    }
+
+    function desarEstat(accioRealitzada, usuariAccio) {
+      appState.meta.darreraModificacio = new Date().toISOString();
+      if (accioRealitzada) {
+        registrarAccio(accioRealitzada, usuariAccio || "Usuari");
+      }
+      localStorage.setItem("quadern_uoc_state", JSON.stringify(appState));
+      renderitzarTot();
+    }
+
+    function carregarLocalStorage() {
+      const saved = localStorage.getItem("quadern_uoc_state");
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          appState = parsed;
+
+          if (!appState.equip || appState.equip.length === 0) {
+            appState.equip = JSON.parse(JSON.stringify(MEMBRES_DEFECTE));
+          }
+        } catch (e) {
+          console.error("Error carregant localStorage", e);
+        }
+      } else {
+        registrarAccio("Inicialització de l'aplicació", "Sistema");
+        localStorage.setItem("quadern_uoc_state", JSON.stringify(appState));
+      }
+    }
+
+    // NAVEGACIÓ
+    function showTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+      
+      document.getElementById('tab-' + tabId).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    // RENDERITZACIÓ GENERAL
+    function renderitzarTot() {
+      renderitzarInfoGeneral();
+      actualitzarDesplegablesEquip();
+      renderitzarDiari();
+      renderitzarTasques();
+      renderitzarDashboard();
+      renderitzarHistorial();
+    }
+
+    // 1. INFORMACIÓ GENERAL
+    function renderitzarInfoGeneral() {
+      document.getElementById('proj-nom').value = appState.projecte.nom || "";
+      document.getElementById('proj-assignatura').value = appState.projecte.assignatura || "";
+      document.getElementById('proj-professora').value = appState.projecte.professora || "";
+
+      const tbody = document.getElementById('taula-equip');
+      tbody.innerHTML = "";
+      appState.equip.forEach((m, index) => {
+        tbody.innerHTML += `
+          <tr>
+            <td><strong>${escapeHtml(m.nom)}</strong></td>
+            <td><input type="text" value="${escapeHtml(m.rol || '')}" onchange="actualitzarMembre(${index}, 'rol', this.value)" placeholder="Afegir rol..."></td>
+            <td><input type="email" value="${escapeHtml(m.email || '')}" onchange="actualitzarMembre(${index}, 'email', this.value)" placeholder="correu@uoc.edu"></td>
+            <td>
+              <button class="btn btn-danger btn-sm" onclick="eliminarMembre(${index})">Esborrar</button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    function guardarInfoGeneral() {
+      appState.projecte.nom = document.getElementById('proj-nom').value;
+      appState.projecte.assignatura = document.getElementById('proj-assignatura').value;
+      appState.projecte.professora = document.getElementById('proj-professora').value;
+      desarEstat("Actualització de la informació general del projecte");
+      mostrarToast("Dades generals desades correctament.", "success");
+    }
+
+    function actualitzarMembre(index, camp, valor) {
+      appState.equip[index][camp] = valor;
+      desarEstat(`Actualització del ${camp} de ${appState.equip[index].nom}`);
+    }
+
+    function obrirModalMembre() {
+      const nom = prompt("Nom i cognoms del nou membre:");
+      if (nom && nom.trim() !== "") {
+        const nouId = "m-" + Date.now();
+        appState.equip.push({ id: nouId, nom: nom.trim(), rol: "", email: "" });
+        desarEstat(`Afegit nou membre de l'equip: ${nom.trim()}`);
+      }
+    }
+
+    function eliminarMembre(index) {
+      if (confirm(`Segur que vols eliminar ${appState.equip[index].nom} de l'equip?`)) {
+        const nom = appState.equip[index].nom;
+        appState.equip.splice(index, 1);
+        desarEstat(`Eliminat membre de l'equip: ${nom}`);
+      }
+    }
+
+    // ACTUALITZACIÓ DE DESPLEGABLES I OPCIONS EN TOTA LA UI
+    function actualitzarDesplegablesEquip() {
+      const selectAutor = document.getElementById('diari-autor');
+      const valAutor = selectAutor.value;
+      selectAutor.innerHTML = '<option value="">Selecciona un autor/a...</option>';
+      appState.equip.forEach(m => {
+        selectAutor.innerHTML += `<option value="${m.id}">${escapeHtml(m.nom)}</option>`;
+      });
+      selectAutor.value = valAutor;
+
+      const selectFiltreAutor = document.getElementById('filtre-autor');
+      const valFiltre = selectFiltreAutor.value;
+      selectFiltreAutor.innerHTML = '<option value="">Tots els autors</option>';
+      appState.equip.forEach(m => {
+        selectFiltreAutor.innerHTML += `<option value="${m.id}">${escapeHtml(m.nom)}</option>`;
+      });
+      selectFiltreAutor.value = valFiltre;
+
+      const containerPart = document.getElementById('container-participants');
+      containerPart.innerHTML = "";
+      appState.equip.forEach(m => {
+        containerPart.innerHTML += `
+          <div class="sub-item">
+            <input type="checkbox" id="part-check-${m.id}" value="${m.id}" onchange="toggleAportacioInput('${m.id}')">
+            <label for="part-check-${m.id}" style="width: 200px;">${escapeHtml(m.nom)}</label>
+            <input type="text" id="part-text-${m.id}" placeholder="Aportació específica..." disabled style="flex: 1;">
+          </div>
+        `;
+      });
+
+      const containerResp = document.getElementById('container-tasca-responsables');
+      containerResp.innerHTML = "";
+      appState.equip.forEach(m => {
+        containerResp.innerHTML += `
+          <label style="font-weight: normal; cursor: pointer;">
+            <input type="checkbox" name="tasca-resp" value="${m.id}"> ${escapeHtml(m.nom)}
+          </label>
+        `;
+      });
+    }
+
+    function toggleAportacioInput(membreId) {
+      const chk = document.getElementById(`part-check-${membreId}`);
+      const txt = document.getElementById(`part-text-${membreId}`);
+      txt.disabled = !chk.checked;
+      if (!chk.checked) txt.value = "";
+    }
+
+    function afegirCampEnllac(text = "", url = "") {
+      const container = document.getElementById('container-enllacos');
+      const div = document.createElement('div');
+      div.className = 'sub-item';
+      div.innerHTML = `
+        <input type="text" placeholder="Títol o descripció del document" class="enllac-text" value="${escapeHtml(text)}" style="flex:1;">
+        <input type="text" placeholder="URL (https://...)" class="enllac-url" value="${escapeHtml(url)}" style="flex:1;">
+        <button type="button" class="btn btn-danger btn-sm" onclick="this.parentElement.remove()">X</button>
+      `;
+      container.appendChild(div);
+    }
+
+    // 2. DIARI DEL PROJECTE
+    function guardarEntradaDiari(e) {
+      e.preventDefault();
+      
+      const idExistet = document.getElementById('diari-id').value;
+      const autorId = document.getElementById('diari-autor').value;
+      const autorObj = appState.equip.find(m => m.id === autorId);
+      const nomAutor = autorObj ? autorObj.nom : "Desconegut";
+
+      const participants = [];
+      appState.equip.forEach(m => {
+        const chk = document.getElementById(`part-check-${m.id}`);
+        if (chk && chk.checked) {
+          const txt = document.getElementById(`part-text-${m.id}`).value;
+          participants.push({ membreId: m.id, aportacio: txt });
+        }
+      });
+
+      const enllacos = [];
+      document.querySelectorAll('#container-enllacos .sub-item').forEach(el => {
+        const text = el.querySelector('.enllac-text').value;
+        const url = el.querySelector('.enllac-url').value;
+        if (url.trim() !== "") {
+          enllacos.push({ text: text || url, url: url });
+        }
+      });
+
+      const entradaData = {
+        id: idExistet || "entry-" + Date.now() + "-" + Math.random().toString(36).substr(2, 4),
+        dataHora: new Date(document.getElementById('diari-data').value).toISOString(),
+        autorId: autorId,
+        tipusActivitat: document.getElementById('diari-tipus').value,
+        titol: document.getElementById('diari-titol').value,
+        descripcio: document.getElementById('diari-descripcio').value,
+        decisions: document.getElementById('diari-decisions').value,
+        resultats: document.getElementById('diari-resultats').value,
+        participants: participants,
+        enllacos: enllacos
+      };
+
+      if (idExistet) {
+        const idx = appState.diari.findIndex(x => x.id === idExistet);
+        if (idx !== -1) appState.diari[idx] = entradaData;
+        desarEstat(`Modificada entrada del diari: "${entradaData.titol}"`, nomAutor);
+        mostrarToast("Entrada modificada correctament.", "success");
+      } else {
+        appState.diari.unshift(entradaData);
+        desarEstat(`Nova entrada al diari: "${entradaData.titol}"`, nomAutor);
+        mostrarToast("Nova entrada afegida al diari.", "success");
+      }
+
+      netejarFormDiari();
+    }
+
+    function netejarFormDiari() {
+      document.getElementById('form-diari').reset();
+      document.getElementById('diari-id').value = "";
+      document.getElementById('container-enllacos').innerHTML = "";
+      establirDataHoraActual();
+      actualitzarDesplegablesEquip();
+    }
+
+    function renderitzarDiari() {
+      filtrarDiari();
+    }
+
+    function filtrarDiari() {
+      const query = document.getElementById('filtre-text').value.toLowerCase();
+      const autorFiltre = document.getElementById('filtre-autor').value;
+      const tipusFiltre = document.getElementById('filtre-tipus').value;
+      const dataDesde = document.getElementById('filtre-data-desde').value;
+      const dataFinsa = document.getElementById('filtre-data-finsa').value;
+
+      const filtrats = appState.diari.filter(e => {
+        const matchText = e.titol.toLowerCase().includes(query) || 
+                          e.descripcio.toLowerCase().includes(query) || 
+                          (e.decisions && e.decisions.toLowerCase().includes(query));
+        const matchAutor = !autorFiltre || e.autorId === autorFiltre;
+        const matchTipus = !tipusFiltre || e.tipusActivitat === tipusFiltre;
+        
+        let matchData = true;
+        const entryDate = e.dataHora.slice(0, 10);
+        if (dataDesde && entryDate < dataDesde) matchData = false;
+        if (dataFinsa && entryDate > dataFinsa) matchData = false;
+
+        return matchText && matchAutor && matchTipus && matchData;
+      });
+
+      const container = document.getElementById('llista-diari');
+      container.innerHTML = "";
+
+      if (filtrats.length === 0) {
+        container.innerHTML = "<p style='color: #718096;'>No s'han trobat entrades amb els filtres seleccionats.</p>";
+        return;
+      }
+
+      filtrats.forEach(e => {
+        const autorObj = appState.equip.find(m => m.id === e.autorId);
+        const nomAutor = autorObj ? autorObj.nom : "Autor desconegut";
+        const dataFormatted = new Date(e.dataHora).toLocaleString('ca-ES');
+
+        let participantsHTML = "";
+        if (e.participants && e.participants.length > 0) {
+          participantsHTML = "<div class='entry-section'><div class='entry-section-title'>Participants:</div><ul style='padding-left:20px; font-size:0.9rem;'>";
+          e.participants.forEach(p => {
+            const mObj = appState.equip.find(m => m.id === p.membreId);
+            const mNom = mObj ? mObj.nom : "Membre";
+            participantsHTML += `<li><strong>${escapeHtml(mNom)}</strong>: ${escapeHtml(p.aportacio || 'Sense detall específic')}</li>`;
+          });
+          participantsHTML += "</ul></div>";
+        }
+
+        let enllacosHTML = "";
+        if (e.enllacos && e.enllacos.length > 0) {
+          enllacosHTML = "<div class='entry-section'><div class='entry-section-title'>Evidències / Enllaços:</div><ul style='padding-left:20px; font-size:0.9rem;'>";
+          e.enllacos.forEach(l => {
+            enllacosHTML += `<li><a href="${escapeHtml(l.url)}" target="_blank" rel="noopener">${escapeHtml(l.text)}</a></li>`;
+          });
+          enllacosHTML += "</ul></div>";
+        }
+
+        container.innerHTML += `
+          <div class="entry-card">
+            <div class="entry-header">
+              <span class="entry-title">${escapeHtml(e.titol)}</span>
+              <div>
+                <button class="btn btn-secondary btn-sm" onclick="editarEntradaDiari('${e.id}')">Editar</button>
+                <button class="btn btn-danger btn-sm" onclick="eliminarEntradaDiari('${e.id}')">Esborrar</button>
+              </div>
+            </div>
+            <div class="entry-meta">
+              <span>📅 ${dataFormatted}</span>
+              <span>👤 <strong>${escapeHtml(nomAutor)}</strong></span>
+              <span class="badge badge-activity">${escapeHtml(e.tipusActivitat)}</span>
+            </div>
+            <div style="font-size: 0.95rem; margin-bottom: 8px;">${escapeHtml(e.descripcio)}</div>
+            ${e.decisions ? `<div class="entry-section"><div class="entry-section-title">Decisions & Justificació:</div><div style="font-size:0.9rem;">${escapeHtml(e.decisions)}</div></div>` : ''}
+            ${e.resultats ? `<div class="entry-section"><div class="entry-section-title">Resultats:</div><div style="font-size:0.9rem;">${escapeHtml(e.resultats)}</div></div>` : ''}
+            ${participantsHTML}
+            ${enllacosHTML}
+          </div>
+        `;
+      });
+    }
+
+    function editarEntradaDiari(id) {
+      const e = appState.diari.find(x => x.id === id);
+      if (!e) return;
+
+      document.getElementById('diari-id').value = e.id;
+      const d = new Date(e.dataHora);
+      d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+      document.getElementById('diari-data').value = d.toISOString().slice(0, 16);
+      document.getElementById('diari-autor').value = e.autorId;
+      document.getElementById('diari-tipus').value = e.tipusActivitat;
+      document.getElementById('diari-titol').value = e.titol;
+      document.getElementById('diari-descripcio').value = e.descripcio;
+      document.getElementById('diari-decisions').value = e.decisions || "";
+      document.getElementById('diari-resultats').value = e.resultats || "";
+
+      actualitzarDesplegablesEquip();
+
+      if (e.participants) {
+        e.participants.forEach(p => {
+          const chk = document.getElementById(`part-check-${p.membreId}`);
+          const txt = document.getElementById(`part-text-${p.membreId}`);
+          if (chk) {
+            chk.checked = true;
+            txt.disabled = false;
+            txt.value = p.aportacio || "";
+          }
+        });
+      }
+
+      document.getElementById('container-enllacos').innerHTML = "";
+      if (e.enllacos) {
+        e.enllacos.forEach(l => afegirCampEnllac(l.text, l.url));
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function eliminarEntradaDiari(id) {
+      if (confirm("Segur que vols eliminar aquesta entrada del diari?")) {
+        const idx = appState.diari.findIndex(x => x.id === id);
+        if (idx !== -1) {
+          const titol = appState.diari[idx].titol;
+          appState.diari.splice(idx, 1);
+          desarEstat(`Eliminada entrada del diari: "${titol}"`);
+          mostrarToast("Entrada eliminada correctament.", "info");
+        }
+      }
+    }
+
+    // 3. GESTIÓ DE TASQUES I SUBTASQUES
+    function afegirSubtascaForm() {
+      const input = document.getElementById('tasca-nova-subtasca');
+      const text = input.value.trim();
+      if (!text) return;
+
+      subtasksFormTemp.push({
+        id: "sub-" + Date.now() + "-" + Math.random().toString(36).substr(2, 3),
+        text: text,
+        completada: false
+      });
+
+      input.value = "";
+      renderitzarSubtasquesForm();
+    }
+
+    function eliminarSubtascaForm(index) {
+      subtasksFormTemp.splice(index, 1);
+      renderitzarSubtasquesForm();
+    }
+
+    function renderitzarSubtasquesForm() {
+      const container = document.getElementById('container-subtasques-form');
+      container.innerHTML = "";
+      subtasksFormTemp.forEach((st, idx) => {
+        const div = document.createElement('div');
+        div.className = 'sub-item';
+        div.innerHTML = `
+          <span style="flex:1; font-size:0.9rem;">- ${escapeHtml(st.text)}</span>
+          <button type="button" class="btn btn-danger btn-sm" style="padding: 2px 6px;" onclick="eliminarSubtascaForm(${idx})">🗑️</button>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function guardarTasca(e) {
+      e.preventDefault();
+
+      const idExistent = document.getElementById('tasca-id').value;
+      const respIds = [];
+      document.querySelectorAll('input[name="tasca-resp"]:checked').forEach(chk => {
+        respIds.push(chk.value);
+      });
+
+      if (respIds.length === 0) {
+        mostrarToast("Selecciona almenys un responsable per a la tasca.", "warning");
+        return;
+      }
+
+      const tascaData = {
+        id: idExistent || "task-" + Date.now() + "-" + Math.random().toString(36).substr(2, 4),
+        descripcio: document.getElementById('tasca-descripcio').value,
+        responsablesIds: respIds,
+        dataLimit: document.getElementById('tasca-limit').value,
+        estat: document.getElementById('tasca-estat').value,
+        subtasques: [...subtasksFormTemp]
+      };
+
+      if (idExistent) {
+        const idx = appState.tasques.findIndex(x => x.id === idExistent);
+        if (idx !== -1) appState.tasques[idx] = tascaData;
+        desarEstat(`Modificada tasca: "${tascaData.descripcio}"`);
+        mostrarToast("Tasca actualitzada correctament.", "success");
+      } else {
+        appState.tasques.push(tascaData);
+        desarEstat(`Nova tasca creada: "${tascaData.descripcio}"`);
+        mostrarToast("Nova tasca desada al tauler.", "success");
+      }
+
+      netejarFormTasca();
+    }
+
+    function netejarFormTasca() {
+      document.getElementById('form-tasca').reset();
+      document.getElementById('tasca-id').value = "";
+      subtasksFormTemp = [];
+      renderitzarSubtasquesForm();
+    }
+
+    // INDICADORS VISUALS DE TERMINI (DEADLINES)
+    function obtenirEstatTermini(dataLimitStr, estatTasca) {
+      if (estatTasca === 'Completada') {
+        return { classe: 'badge-done', text: '✅ Finalitzada', esVencuda: false };
+      }
+      if (!dataLimitStr) return { classe: '', text: '', esVencuda: false };
+
+      const avui = new Date();
+      avui.setHours(0, 0, 0, 0);
+
+      const limit = new Date(dataLimitStr);
+      limit.setHours(0, 0, 0, 0);
+
+      const diffMs = limit.getTime() - avui.getTime();
+      const diffDies = Math.round(diffMs / (1000 * 60 * 60 * 24));
+
+      if (diffDies < 0) {
+        const diesAbs = Math.abs(diffDies);
+        return {
+          classe: 'badge-vencuda',
+          text: `⚠️ Vençuda fa ${diesAbs} dia${diesAbs > 1 ? 's' : ''}`,
+          esVencuda: true
+        };
+      } else if (diffDies === 0) {
+        return { classe: 'badge-urgent', text: '⏳ Venç avui', esVencuda: false };
+      } else if (diffDies === 1) {
+        return { classe: 'badge-urgent', text: '⏳ Venç demà', esVencuda: false };
+      } else if (diffDies <= 3) {
+        return { classe: 'badge-urgent', text: `⏳ Queden ${diffDies} dies`, esVencuda: false };
+      } else {
+        return { classe: 'badge-ok', text: `📅 Queden ${diffDies} dies`, esVencuda: false };
+      }
+    }
+
+    function toggleSubtascaKanban(taskId, subId) {
+      const task = appState.tasques.find(t => t.id === taskId);
+      if (!task || !task.subtasques) return;
+
+      const sub = task.subtasques.find(s => s.id === subId);
+      if (sub) {
+        sub.completada = !sub.completada;
+        desarEstat(`Actualitzat estat subtasca "${sub.text}" a tasca: ${task.descripcio}`);
+      }
+    }
+
+    function renderitzarTasques() {
+      const cols = {
+        'Pendent': document.getElementById('tasks-pendent'),
+        'En procés': document.getElementById('tasks-proces'),
+        'Bloquejada': document.getElementById('tasks-bloquejada'),
+        'Completada': document.getElementById('tasks-completada')
+      };
+
+      const counts = { 'Pendent': 0, 'En procés': 0, 'Bloquejada': 0, 'Completada': 0 };
+
+      Object.keys(cols).forEach(k => cols[k].innerHTML = "");
+
+      appState.tasques.forEach(t => {
+        counts[t.estat] = (counts[t.estat] || 0) + 1;
+
+        const respNoms = t.responsablesIds.map(id => {
+          const m = appState.equip.find(x => x.id === id);
+          return m ? m.nom : "Desconegut";
+        }).join(", ");
+
+        const statusTermini = obtenirEstatTermini(t.dataLimit, t.estat);
+
+        const cssClass = t.estat === 'Pendent' ? 'task-pendent' :
+                         t.estat === 'En procés' ? 'task-proces' :
+                         t.estat === 'Bloquejada' ? 'task-bloquejada' : 'task-completada';
+
+        // Generació HTML subtasques
+        let subtasquesHTML = "";
+        if (t.subtasques && t.subtasques.length > 0) {
+          const totalSub = t.subtasques.length;
+          const doneSub = t.subtasques.filter(s => s.completada).length;
+          subtasquesHTML += `<div class="subtask-progress">Subtasques: ${doneSub}/${totalSub}</div>`;
+          subtasquesHTML += `<div class="subtask-list">`;
+          t.subtasques.forEach(st => {
+            subtasquesHTML += `
+              <div class="subtask-item ${st.completada ? 'completed' : ''}">
+                <input type="checkbox" ${st.completada ? 'checked' : ''} onchange="toggleSubtascaKanban('${t.id}', '${st.id}')">
+                <span>${escapeHtml(st.text)}</span>
+              </div>
+            `;
+          });
+          subtasquesHTML += `</div>`;
+        }
+
+        const card = document.createElement('div');
+        card.className = `task-card ${cssClass} ${statusTermini.esVencuda ? 'task-vencuda' : ''}`;
+        card.innerHTML = `
+          <div class="task-title">${escapeHtml(t.descripcio)}</div>
+          <div class="task-meta">
+            👤 ${escapeHtml(respNoms)}<br>
+            📅 Deadline: ${t.dataLimit}<br>
+            <span class="badge-deadline ${statusTermini.classe}">${statusTermini.text}</span>
+          </div>
+          ${subtasquesHTML}
+          <div style="display: flex; gap: 5px; flex-wrap: wrap; margin-top: 10px;">
+            <select onchange="canviarEstatTasca('${t.id}', this.value)" style="padding: 2px 5px; font-size: 0.8rem;">
+              <option value="Pendent" ${t.estat === 'Pendent' ? 'selected' : ''}>Pendent</option>
+              <option value="En procés" ${t.estat === 'En procés' ? 'selected' : ''}>En procés</option>
+              <option value="Bloquejada" ${t.estat === 'Bloquejada' ? 'selected' : ''}>Bloquejada</option>
+              <option value="Completada" ${t.estat === 'Completada' ? 'selected' : ''}>Completada</option>
+            </select>
+            <button class="btn btn-danger btn-sm" style="padding: 2px 6px;" onclick="eliminarTasca('${t.id}')">🗑️</button>
+          </div>
+        `;
+        if (cols[t.estat]) cols[t.estat].appendChild(card);
+      });
+
+      document.getElementById('count-pendent').innerText = counts['Pendent'];
+      document.getElementById('count-proces').innerText = counts['En procés'];
+      document.getElementById('count-bloquejada').innerText = counts['Bloquejada'];
+      document.getElementById('count-completada').innerText = counts['Completada'];
+    }
+
+    function canviarEstatTasca(id, nouEstat) {
+      const t = appState.tasques.find(x => x.id === id);
+      if (t) {
+        const vellEstat = t.estat;
+        t.estat = nouEstat;
+        desarEstat(`Canvi estat tasca "${t.descripcio}": ${vellEstat} ➔ ${nouEstat}`);
+        mostrarToast(`Tasca moguda a: ${nouEstat}`, "info");
+      }
+    }
+
+    function eliminarTasca(id) {
+      if (confirm("Segur que vols eliminar aquesta tasca?")) {
+        const idx = appState.tasques.findIndex(x => x.id === id);
+        if (idx !== -1) {
+          const desc = appState.tasques[idx].descripcio;
+          appState.tasques.splice(idx, 1);
+          desarEstat(`Eliminada tasca: "${desc}"`);
+          mostrarToast("Tasca eliminada.", "info");
+        }
+      }
+    }
+
+    // 4. SEGUIMENT I INDICADORS
+    function renderitzarDashboard() {
+      const totalTasques = appState.tasques.length;
+      const completades = appState.tasques.filter(t => t.estat === 'Completada').length;
+      const pc = totalTasques > 0 ? Math.round((completades / totalTasques) * 100) : 0;
+
+      document.getElementById('dash-progress-pc').innerText = `${pc}%`;
+      document.getElementById('dash-total-tasks').innerText = totalTasques;
+      document.getElementById('dash-total-entries').innerText = appState.diari.length;
+      document.getElementById('dash-progress-bar').style.width = `${pc}%`;
+
+      const tbody = document.getElementById('dash-taula-participacio');
+      tbody.innerHTML = "";
+
+      appState.equip.forEach(m => {
+        const entradesCreades = appState.diari.filter(e => e.autorId === m.id).length;
+        
+        let participacions = 0;
+        appState.diari.forEach(e => {
+          if (e.participants && e.participants.some(p => p.membreId === m.id)) {
+            participacions++;
+          }
+        });
+
+        const tasquesAssignades = appState.tasques.filter(t => t.responsablesIds && t.responsablesIds.includes(m.id)).length;
+        const tasquesCompletades = appState.tasques.filter(t => t.responsablesIds && t.responsablesIds.includes(m.id) && t.estat === 'Completada').length;
+
+        tbody.innerHTML += `
+          <tr>
+            <td><strong>${escapeHtml(m.nom)}</strong></td>
+            <td>${entradesCreades}</td>
+            <td>${participacions}</td>
+            <td>${tasquesAssignades}</td>
+            <td>${tasquesCompletades}</td>
+          </tr>
+        `;
+      });
+    }
+
+    // 5. HISTORIAL DE CANVIS
+    function renderitzarHistorial() {
+      const tbody = document.getElementById('taula-historial');
+      tbody.innerHTML = "";
+
+      appState.historial.slice(0, 50).forEach(h => {
+        const dataFormatted = new Date(h.timestamp).toLocaleString('ca-ES');
+        tbody.innerHTML += `
+          <tr>
+            <td style="font-size: 0.85rem; color: #718096;">${dataFormatted}</td>
+            <td><strong>${escapeHtml(h.usuari)}</strong></td>
+            <td>${escapeHtml(h.accio)}</td>
+          </tr>
+        `;
+      });
+    }
+
+    // 6. GESTIÓ DE DADES (EXPORT/IMPORT JSON)
+    function exportarJSON() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appState, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `quadern_projecte_${new Date().toISOString().slice(0,10)}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      registrarAccio("Exportació de dades en fitxer JSON", "Usuari");
+      mostrarToast("Fitxer JSON exportat correctament.", "success");
+    }
+
+    function importarJSON(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const importedData = JSON.parse(e.target.result);
+
+          if (importedData.projecte) {
+            if (!appState.projecte.nom) appState.projecte.nom = importedData.projecte.nom;
+            if (!appState.projecte.assignatura) appState.projecte.assignatura = importedData.projecte.assignatura;
+            if (!appState.projecte.professora) appState.projecte.professora = importedData.projecte.professora;
+          }
+
+          if (importedData.equip && Array.isArray(importedData.equip)) {
+            importedData.equip.forEach(mImport => {
+              const existeix = appState.equip.find(m => m.id === mImport.id || m.nom.toLowerCase() === mImport.nom.toLowerCase());
+              if (!existeix) {
+                appState.equip.push(mImport);
+              }
+            });
+          }
+
+          let entradesNoves = 0;
+          if (importedData.diari && Array.isArray(importedData.diari)) {
+            importedData.diari.forEach(eImport => {
+              const idx = appState.diari.findIndex(e => e.id === eImport.id);
+              if (idx === -1) {
+                appState.diari.push(eImport);
+                entradesNoves++;
+              } else {
+                if (new Date(eImport.dataHora) > new Date(appState.diari[idx].dataHora)) {
+                  appState.diari[idx] = eImport;
+                }
+              }
+            });
+            appState.diari.sort((a, b) => new Date(b.dataHora) - new Date(a.dataHora));
+          }
+
+          let tasquesNoves = 0;
+          if (importedData.tasques && Array.isArray(importedData.tasques)) {
+            importedData.tasques.forEach(tImport => {
+              const idx = appState.tasques.findIndex(t => t.id === tImport.id);
+              if (idx === -1) {
+                appState.tasques.push(tImport);
+                tasquesNoves++;
+              } else {
+                appState.tasques[idx] = tImport;
+              }
+            });
+          }
+
+          desarEstat(`Importació de fitxer JSON: afegides ${entradesNoves} entrades noves i ${tasquesNoves} tasques.`);
+          mostrarToast(`Importació completada! (+${entradesNoves} entrades, +${tasquesNoves} tasques)`, "success", 5000);
+
+        } catch (err) {
+          mostrarToast("Error en llegir el fitxer JSON. Revisa el format.", "danger");
+          console.error(err);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function reiniciarDades() {
+      if (confirm("ATENCIÓ: Això esborrarà totes les dades del quadern en aquest navegador. Vols continuar?")) {
+        localStorage.removeItem("quadern_uoc_state");
+        appState = {
+          meta: { versio: "1.0", darreraModificacio: new Date().toISOString() },
+          projecte: { nom: "", assignatura: "", professora: "" },
+          equip: JSON.parse(JSON.stringify(MEMBRES_DEFECTE)),
+          diari: [],
+          tasques: [],
+          historial: []
+        };
+        desarEstat("Restabliment complet de dades de l'aplicació", "Sistema");
+        mostrarToast("Dades restablertes correctament.", "info");
+      }
+    }
+
+    function escapeHtml(text) {
+      if (!text) return "";
+      return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+  </script>
+</body>
+</html>
